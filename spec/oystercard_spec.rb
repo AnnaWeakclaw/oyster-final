@@ -24,8 +24,8 @@ describe Oystercard do
 
   it 'can start a journey' do
     subject.top_up(4)
-    subject.touch_in
-    expect(subject.journey).to be true
+    subject.touch_in("Bar")
+    expect(subject.journey?).to be true
   end
 
   it 'can end a journey' do
@@ -34,12 +34,12 @@ describe Oystercard do
   end
 
   it 'prevents journey if balance too low' do
-    expect{ subject.touch_in }.to raise_error "not enough funds"
+    expect{ subject.touch_in ("Bar")}.to raise_error "not enough funds"
   end
 
   it 'charges a minimum fare' do
     subject.top_up(10)
-    subject.touch_in
+    subject.touch_in("Bar")
     expect{ subject.touch_out }.to change{ subject.balance }.by(-Oystercard::MINIMUM_FARE)
   end
 
@@ -47,5 +47,10 @@ describe Oystercard do
     subject.top_up(5)
     subject.touch_in("Barbican")
     expect(subject.entry_station).to eq("Barbican")
+  end
+
+  it "starts journey on touch in" do
+    subject.top_up(5)
+    expect(subject.touch_in("Bar")).to be_an_instance_of(Journey)
   end
 end

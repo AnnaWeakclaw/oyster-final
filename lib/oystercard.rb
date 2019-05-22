@@ -14,17 +14,20 @@ class Oystercard
     @balance += amount
   end
 
-  def touch_in(station = "hello")
+  def touch_in(station)
     raise "not enough funds" if @balance < MINIMUM
-    @journey = true
     @entry_station = station
+    @journey1 = Journey.new(station)
   end
 
   def touch_out(fare=MINIMUM_FARE)
-    @journey = false
+    @entry_station = nil
     deduct(fare)
   end
 
+  def journey?
+    @entry_station ?  @journey = true :  @journey = false
+  end
   private
 
   def deduct(amount)
