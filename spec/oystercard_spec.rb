@@ -61,11 +61,12 @@ describe Oystercard do
     subject.touch_out("Bow")
     expect(subject.entry_station).to eq(nil)
   end
+  let(:journey) {double(:journey)}
   it "sets exit station on touch out" do
     subject.top_up(5)
     subject.touch_in("Barbican")
     subject.touch_out("Bow")
-    expect(subject.exit_station).to eq('Bow')
+    expect(:journey).to receive(:exit_station)
   end
   it "can store list of journeys" do
     subject.top_up(10)
@@ -75,5 +76,6 @@ describe Oystercard do
 
       expect(subject.history.size).to eq(3)
   end
+
 
 end
