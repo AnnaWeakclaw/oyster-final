@@ -11,11 +11,8 @@ describe Journey do
     expect(journey.entry_station).to eq("Barbican")
   end
 
-  it "can store journey history" do
-    expect(journey.history).to be_empty
-  end
-
   it "knows the name of exit station" do
+    journey.exit_station = "Bow"
     expect(journey.exit_station).to eq("Bow")
   end
 

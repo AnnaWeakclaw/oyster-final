@@ -2,6 +2,7 @@ require 'oystercard'
 
 describe Oystercard do
 
+
   it 'has a default balance of 0' do
     expect(subject.balance).to eq(0)
   end
@@ -60,4 +61,14 @@ describe Oystercard do
     subject.touch_out
     expect(subject.entry_station).to eq(nil)
   end
+
+  it "can store list of journeys" do
+    subject.top_up(10)
+    3.times { 
+      subject.touch_in("Bow")
+      subject.touch_out }
+
+      expect(subject.history.size).to eq(3)
+  end
+
 end
