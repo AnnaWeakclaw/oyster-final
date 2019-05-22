@@ -1,9 +1,9 @@
-require './lib/oystercard.rb'
+require './lib/oyster_card'
+require './lib/journey'
 
-card = Oystercard.new
+card = OysterCard.new
+journey = Journey.new("Barbican")
+
 card.top_up(10)
-
-
-card.touch_in
-card.touch_out
-card.balance
+entry_station = card.touch_in(journey)  #Barbican
+journey.entry_station # Barbican

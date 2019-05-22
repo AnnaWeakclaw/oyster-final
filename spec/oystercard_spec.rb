@@ -42,4 +42,10 @@ describe Oystercard do
     subject.touch_in
     expect{ subject.touch_out }.to change{ subject.balance }.by(-Oystercard::MINIMUM_FARE)
   end
+
+  it "remembers entry station" do
+    subject.top_up(5)
+    subject.touch_in("Barbican")
+    expect(subject.entry_station).to eq("Barbican")
+  end
 end
