@@ -18,8 +18,8 @@ describe Oystercard do
 
   it 'can pay for travel' do
     card = Oystercard.new(50)
-    card.touch_out(40)
-    expect(card.balance).to eq(10)
+    card.touch_out
+    expect(card.balance).to eq(49)
   end
 
   it 'can start a journey' do
