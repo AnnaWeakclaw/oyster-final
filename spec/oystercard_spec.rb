@@ -19,7 +19,7 @@ describe Oystercard do
 
   it 'can pay for travel' do
     card = Oystercard.new(50)
-    card.touch_out
+    card.touch_out("Bow")
     expect(card.balance).to eq(49)
   end
 
@@ -30,7 +30,7 @@ describe Oystercard do
   end
 
   it 'can end a journey' do
-    subject.touch_out
+    subject.touch_out("Bow")
     expect(subject.journey).to be false
   end
 
@@ -41,7 +41,7 @@ describe Oystercard do
   it 'charges a minimum fare' do
     subject.top_up(10)
     subject.touch_in("Bar")
-    expect{ subject.touch_out }.to change{ subject.balance }.by(-Oystercard::MINIMUM_FARE)
+    expect{ subject.touch_out("Bow") }.to change{ subject.balance }.by(-Oystercard::MINIMUM_FARE)
   end
 
   it "remembers entry station" do
@@ -58,15 +58,20 @@ describe Oystercard do
   it "wipes out entry station on touch out" do
     subject.top_up(5)
     subject.touch_in("Barbican")
-    subject.touch_out
+    subject.touch_out("Bow")
     expect(subject.entry_station).to eq(nil)
   end
-
+  it "sets exit station on touch out" do
+    subject.top_up(5)
+    subject.touch_in("Barbican")
+    subject.touch_out("Bow")
+    expect(subject.exit_station).to eq('Bow')
+  end
   it "can store list of journeys" do
     subject.top_up(10)
     3.times { 
-      subject.touch_in("Bow")
-      subject.touch_out }
+      subject.touch_in("Barbican")
+      subject.touch_out("Bow") }
 
       expect(subject.history.size).to eq(3)
   end
