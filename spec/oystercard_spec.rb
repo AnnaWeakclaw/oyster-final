@@ -53,4 +53,11 @@ describe Oystercard do
     subject.top_up(5)
     expect(subject.touch_in("Bar")).to be_an_instance_of(Journey)
   end
+
+  it "wipes out entry station on touch out" do
+    subject.top_up(5)
+    subject.touch_in("Barbican")
+    subject.touch_out
+    expect(subject.entry_station).to eq(nil)
+  end
 end

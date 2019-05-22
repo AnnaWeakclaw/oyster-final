@@ -15,5 +15,8 @@ describe Journey do
     expect(journey.history).to be_empty
   end
 
+  it "knows the name of exit station" do
+    expect(journey.exit_station).to eq("Bow")
+  end
 
 end
