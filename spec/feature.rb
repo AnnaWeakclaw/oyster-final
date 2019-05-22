@@ -1,10 +1,12 @@
-require './lib/oyster_card'
+require './lib/oystercard'
 require './lib/journey'
+require 'pry-byebug'
 
-card = OysterCard.new
-journey = Journey.new("Barbican")
+card = Oystercard.new
 
-card.top_up(10)
-entry_station = card.touch_in(journey)  #Barbican
-journey.entry_station # Barbican
+# journey = Journey.new("Barbican")
+
+# card.top_up(10)
+# entry_station = card.touch_in(journey)  #Barbican
+# journey.entry_station # Barbican
 

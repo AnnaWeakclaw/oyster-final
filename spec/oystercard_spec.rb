@@ -35,7 +35,7 @@ describe Oystercard do
     subject.top_up(10)
     subject.touch_in("Station")
     subject.touch_out("Bow")
-    expect(subject.journey).to be false
+    expect(subject.journey?).to be false
   end
 
   it 'prevents journey if balance too low' do
@@ -48,23 +48,12 @@ describe Oystercard do
     expect{ subject.touch_out("Bow") }.to change{ subject.balance }.by(-Oystercard::MINIMUM_FARE)
   end
 
-  it "remembers entry station" do
-    subject.top_up(5)
-    subject.touch_in("Barbican")
-    expect(subject.entry_station).to eq("Barbican")
-  end
 
   it "starts journey on touch in" do
     subject.top_up(5)
     expect(subject.touch_in("Bar")).to be_an_instance_of(Journey)
   end
-
-  it "wipes out entry station on touch out" do
-    subject.top_up(5)
-    subject.touch_in("Barbican")
-    subject.touch_out("Bow")
-    expect(subject.entry_station).to eq(nil)
-  end
+  
   let(:journey) {double(:journey)}
   let(:journey_class) { double(:journey_class, new: journey)}
   it "sets exit station on touch out" do
