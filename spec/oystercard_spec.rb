@@ -1,5 +1,6 @@
 require 'oystercard'
 require 'journey'
+require 'pry-byebug'
 
 describe Oystercard do
 
@@ -69,7 +70,6 @@ describe Oystercard do
     3.times { 
       subject.touch_in("Barbican")
       subject.touch_out("Bow") }
-
       expect(subject.history.size).to eq(3)
   end
 
