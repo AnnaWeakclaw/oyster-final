@@ -1,16 +1,17 @@
 require "journeyLog"
 
 describe JourneyLog do
-  let(:log) { JourneyLog.new }
-  let(:journey) { double :journey }
-  let(:journey_class) { double :journey_class, new: journey }
-  let(:station) { double(:station)}
+  let(:log) { JourneyLog.new(journey_class) }
+  let(:journey_class) { double(:journey_class, :new => journey) }
+  let(:journey) { double(:journey, :station => nil) }
+  let(:station) { double(:station, :name => nil, :zone => nil)}
+  
 
   it "initializes with empty list of journeys" do
     expect(log.history).to be_empty
   end
   it "initializes with a journey" do
-    expect(log.journey).to be(Journey)
+    expect(log.journey).to be(journey_class)
   end
 
   it "can store list of journeys" do
@@ -24,5 +25,7 @@ describe JourneyLog do
   end
 
   it 'tells the journey to finish' do 
+    expect(journey).to receive(:set_exit_station)
+    log.finish(station)
   end
 end
