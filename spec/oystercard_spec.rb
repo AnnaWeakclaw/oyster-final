@@ -59,13 +59,6 @@ describe Oystercard do
     card.touch_out("Bow")
     
   end
-  it "can store list of journeys" do
-    subject.top_up(10)
-    3.times { 
-      subject.touch_in("Barbican")
-      subject.touch_out("Bow") }
-      expect(subject.history.size).to eq(3)
-  end
 
 
 end

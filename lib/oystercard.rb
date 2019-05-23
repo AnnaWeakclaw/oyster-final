@@ -4,7 +4,6 @@ class Oystercard
 
   def initialize(balance=0, journey_class = Journey)
     @balance = balance
-    @history = []
     @journey_class = journey_class
     @journey = @journey_class.new
   end
@@ -17,7 +16,6 @@ class Oystercard
   def touch_in(station)
     raise "not enough funds" if @balance < Journey::MINIMUM_FARE
     complete_journey if @journey.status == :not_complete
-    @entry_station = station
     @journey.set_entry_station(station)
   end
 
@@ -27,7 +25,7 @@ class Oystercard
   end
 
   def complete_journey
-    @history.push(@journey)
+    #@history.push(@journey)
     deduct
     @journey = @journey_class.new
   end
