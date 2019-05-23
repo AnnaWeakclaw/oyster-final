@@ -33,9 +33,8 @@ describe 'user makes journey from Barbican to Bow' do
 
       subject.touch_in(barbican_station)
       subject.touch_in(barbican_station)
-      binding.pry
       subject.touch_in(barbican_station)
-      expect(subject.history).to eq(2)
+      expect(subject.history.length).to eq(3)
     end
 
   end
