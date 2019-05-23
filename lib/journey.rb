@@ -1,6 +1,6 @@
 require 'pry-byebug'
 class Journey
-  attr_reader :entry_station, :history
+  attr_reader :history, :entry_station
   attr_accessor :exit_station
 
   MINIMUM_FARE = 1
@@ -10,7 +10,9 @@ class Journey
     @entry_station = entry_station
     @exit_station = nil
   end
-
+  def set_entry_station(entry_station)
+    @entry_station = entry_station
+  end
   def fare
     valid_journey? ? MINIMUM_FARE : PENALTY_FARE
   end

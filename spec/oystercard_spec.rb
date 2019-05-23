@@ -3,7 +3,7 @@ require 'journey'
 require 'pry-byebug'
 
 describe Oystercard do
-  let(:valid_journey_dbl) {double(:journey, fare: 1)}
+  let(:valid_journey_dbl) {double(:journey, fare: 1, status: :complete, set_entry_station: nil)}
   let(:valid_journey_class) { double(:journey_class, new: valid_journey_dbl)}
 
   it 'has a default balance of 0' do
@@ -48,12 +48,6 @@ describe Oystercard do
     subject.top_up(10)
     subject.touch_in("Bar")
     expect{ subject.touch_out("Bow") }.to change{ subject.balance }.by(-Journey::MINIMUM_FARE)
-  end
-
-
-  it "starts journey on touch in" do
-    subject.top_up(5)
-    expect(subject.touch_in("Bar")).to be_an_instance_of(Journey)
   end
   
 
