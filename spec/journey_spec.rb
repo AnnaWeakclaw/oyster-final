@@ -28,4 +28,26 @@ describe Journey do
       expect(journey.fare).to eq(Journey::PENALTY_FARE)
     end
   end
+
+  describe "knows if journey is in progress" do
+    it "knows if journey is started and not finished" do 
+      expect(journey.status).to eq(:not_complete)
+    end
+
+    it "knows if journey is not started and not finished" do 
+      journey = Journey.new
+      expect(journey.status).to eq(:no_journey)
+    end
+
+    it "valid journey" do 
+      journey.exit_station = bow_station
+      expect(journey.status).to eq(:complete)
+    end
+
+    it "no touch in but has exit station" do 
+      journey = Journey.new
+      journey.exit_station = bow_station
+      expect(journey.status).to eq(:not_complete)
+    end
+  end
 end

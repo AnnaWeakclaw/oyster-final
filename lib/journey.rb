@@ -1,3 +1,4 @@
+require 'pry-byebug'
 class Journey
   attr_reader :entry_station, :history
   attr_accessor :exit_station
@@ -15,6 +16,17 @@ class Journey
   end
 
   def valid_journey?
-    !(@entry_station && @exit_station).nil?
+    !@entry_station.nil? && !@exit_station.nil?
+  end
+
+  def status
+   # binding.pry
+    if valid_journey?
+      :complete
+    elsif @entry_station.nil? && @exit_station.nil?
+      :no_journey
+    else
+      :not_complete
+    end
   end
 end
