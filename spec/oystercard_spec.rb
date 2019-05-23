@@ -3,7 +3,8 @@ require 'journey'
 require 'pry-byebug'
 
 describe Oystercard do
-
+  let(:valid_journey_dbl) {double(:journey, fare: 1)}
+  let(:valid_journey_class) { double(:journey_class, new: valid_journey_dbl)}
 
   it 'has a default balance of 0' do
     expect(subject.balance).to eq(0)
@@ -46,7 +47,7 @@ describe Oystercard do
   it 'charges a minimum fare' do
     subject.top_up(10)
     subject.touch_in("Bar")
-    expect{ subject.touch_out("Bow") }.to change{ subject.balance }.by(-Oystercard::MINIMUM_FARE)
+    expect{ subject.touch_out("Bow") }.to change{ subject.balance }.by(-Journey::MINIMUM_FARE)
   end
 
 
@@ -55,13 +56,12 @@ describe Oystercard do
     expect(subject.touch_in("Bar")).to be_an_instance_of(Journey)
   end
   
-  let(:journey) {double(:journey)}
-  let(:journey_class) { double(:journey_class, new: journey)}
+
   it "sets exit station on touch out" do
-    card = Oystercard.new(80, journey_class)
+    card = Oystercard.new(80, valid_journey_class)
     card.top_up(5)
     card.touch_in("Barbican")
-    expect(journey).to receive(:exit_station=)
+    expect(valid_journey_dbl).to receive(:exit_station=)
     card.touch_out("Bow")
     
   end

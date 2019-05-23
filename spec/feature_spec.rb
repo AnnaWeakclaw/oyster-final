@@ -15,5 +15,9 @@ describe 'user makes journey from Barbican to Bow' do
   it '#history.last gives the last journey entry station' do
     expect(subject.history.last.entry_station).to eq('Barbican')
   end
+  it 'makes a valid journey and costs #{Journey::MINIMUM_FARE}' do
+    subject.touch_in('Barbican')
+    expect{subject.touch_out('Bow')}.to change{subject.balance}.by(-1)
+  end
 
 end

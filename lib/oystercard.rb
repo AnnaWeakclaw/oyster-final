@@ -1,6 +1,5 @@
 class Oystercard
   LIMIT = 90
-  MINIMUM_FARE = 1
   attr_reader :balance, :history
 
   def initialize(balance=0, journey_class = Journey)
@@ -16,7 +15,7 @@ class Oystercard
   end
 
   def touch_in(station)
-    raise "not enough funds" if @balance < MINIMUM_FARE
+    raise "not enough funds" if @balance < Journey::MINIMUM_FARE
     @entry_station = station
     @journey = @journey_class.new(station)
   end
@@ -38,7 +37,7 @@ class Oystercard
   private
 
   def deduct
-    @balance -= MINIMUM_FARE
+    @balance -= @journey.fare
   end
 
 end
